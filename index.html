@@ -41,8 +41,13 @@
       transform: scale(1.1);
     }
 
+      .message { /* Tambahkan style untuk .message di mobile */
+        max-height: 60vh; /* Batasi tinggi maksimal pesan, misal 60% dari tinggi viewport */
+        overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi max-height */
+        padding-right: 10px; /* Tambahkan sedikit padding agar scrollbar tidak menempel ke teks */
+      }
+
     .message-container {
-      
       background-image: url('paper-background.png');
       background-color: rgba(255, 255, 255, 0.45);
       background-size: contain;
@@ -70,7 +75,6 @@
     h1 {
       font-size: 2rem; 
       margin-bottom: 1rem;
-      
     }
 
     p {
@@ -78,7 +82,6 @@
       max-width: 90%; 
       margin: 0 auto 2rem;
       line-height: 1.6;
-       
     }
 
     button {
@@ -126,36 +129,38 @@
       }
     }
 
-        @media (max-width: 768px) {
+    /* Media Query untuk layar yang lebih kecil (misalnya, ponsel) */
+    @media (max-width: 768px) {
       .book {
         width: 100px;
-        height: 140px;
+        height: 130px; /* Sedikit lebih kecil */
         font-size: 1rem;
       }
-    }
 
       .message-container {
         max-width: 90%; /* Gunakan persentase agar lebih fleksibel */
-        padding: 25px 20px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.15), /* Bayangan lebih lembut */
-                    0 0 10px 3px rgba(255, 255, 224, 0.5), 
-                    0 0 15px 5px rgba(255, 255, 255, 0.4);
+        padding: 20px 15px; /* Padding lebih kecil */
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1), /* Bayangan sangat lembut */
+                    0 0 8px 2px rgba(255, 255, 224, 0.4), 
+                    0 0 12px 4px rgba(255, 255, 255, 0.3);
       }
 
       h1 {
-        font-size: 1.6rem; /* Ukuran font H1 lebih kecil */
+        font-size: 1.4rem; /* Ukuran font H1 sangat kecil */
+        margin-bottom: 0.8rem;
       }
 
       p {
-        font-size: 0.9rem; /* Ukuran font paragraf lebih kecil */
+        font-size: 0.8rem; /* Ukuran font paragraf sangat kecil */
         line-height: 1.5;
+        margin-bottom: 1.5rem;
       }
 
       button {
-        padding: 0.5rem 1rem; /* Padding tombol lebih kecil */
-        font-size: 0.8rem; /* Ukuran font tombol lebih kecil */
+        padding: 0.4rem 0.8rem; /* Padding tombol sangat kecil */
+        font-size: 0.75rem; /* Ukuran font tombol sangat kecil */
       }
-
+    }
   </style>
 </head>
 <body>
@@ -181,7 +186,14 @@
 
   <script>
     const starsContainer = document.getElementById("stars");
-    for (let i = 0; i < 60; i++) {
+    let numberOfStars = 60; // Default untuk desktop
+
+    // Mengurangi jumlah bintang untuk perangkat mobile demi performa
+    if (window.innerWidth <= 768) {
+      numberOfStars = 30; 
+    }
+
+    for (let i = 0; i < numberOfStars; i++) {
       const star = document.createElement("div");
       star.classList.add("star");
       star.style.left = Math.random() * window.innerWidth + "px";
