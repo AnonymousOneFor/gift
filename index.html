@@ -41,11 +41,11 @@
       transform: scale(1.1);
     }
 
-      .message { /* Tambahkan style untuk .message di mobile */
-        max-height: 60vh; /* Batasi tinggi maksimal pesan, misal 60% dari tinggi viewport */
-        overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi max-height */
-        padding-right: 10px; /* Tambahkan sedikit padding agar scrollbar tidak menempel ke teks */
-      }
+    .message { 
+      max-height: 60vh;
+      overflow-y: auto;
+      padding-right: 10px;
+    }
 
     .message-container {
       background-image: url('paper-background.png');
@@ -66,23 +66,13 @@
                   0 0 25px 8px rgba(255, 255, 255, 0.45); 
     }
 
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    h1 {
-      font-size: 2rem; 
-      margin-bottom: 1rem;
-    }
-
-    p {
-      font-size: 1rem; 
-      max-width: 90%; 
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
+    h1 { font-size: 2rem; margin-bottom: 1rem; }
+    p { font-size: 1rem; max-width: 90%; margin: 0 ; line-height: 1.6; }
 
     button {
       background-color: #ffcc00;
@@ -94,11 +84,7 @@
       cursor: pointer;
       transition: 0.3s;
     }
-
-    button:hover {
-      background-color: #ffd633;
-      transform: scale(1.05);
-    }
+    button:hover { background-color: #ffd633; transform: scale(1.05); }
 
     .stars {
       position: absolute;
@@ -119,48 +105,78 @@
     }
 
     @keyframes shooting {
-      0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(-500px, 500px) scale(0.5);
-        opacity: 0;
-      }
+      0% { transform: translate(0, 0) scale(1); opacity: 1; }
+      100% { transform: translate(-500px, 500px) scale(0.5); opacity: 0; }
     }
 
-    /* Media Query untuk layar yang lebih kecil (misalnya, ponsel) */
+    /* Popup */
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 400px;
+    }
+    .popup-content img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    .close-btn {
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: #eb5757;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .close-btn:hover { background: #c0392b; }
+
     @media (max-width: 768px) {
-      .book {
-        width: 100px;
-        height: 130px; /* Sedikit lebih kecil */
-        font-size: 1rem;
-      }
-
-      .message-container {
-        max-width: 90%; /* Gunakan persentase agar lebih fleksibel */
-        padding: 20px 15px; /* Padding lebih kecil */
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1), /* Bayangan sangat lembut */
-                    0 0 8px 2px rgba(255, 255, 224, 0.4), 
-                    0 0 12px 4px rgba(255, 255, 255, 0.3);
-      }
-
-      h1 {
-        font-size: 1.4rem; /* Ukuran font H1 sangat kecil */
-        margin-bottom: 0.8rem;
-      }
-
-      p {
-        font-size: 0.8rem; /* Ukuran font paragraf sangat kecil */
-        line-height: 1.5;
-        margin-bottom: 1.5rem;
-      }
-
-      button {
-        padding: 0.4rem 0.8rem; /* Padding tombol sangat kecil */
-        font-size: 0.75rem; /* Ukuran font tombol sangat kecil */
-      }
+      .book { width: 100px; height: 130px; font-size: 1rem; }
+      .message-container { max-width: 90%; padding: 20px 15px; }
+      h1 { font-size: 1.4rem; margin-bottom: 0.8rem; }
+      p { font-size: 0.8rem; line-height: 1.5; margin-bottom: 1.5rem; }
+      button { padding: 0.4rem 0.8rem; font-size: 0.75rem; }
     }
+
+    pre {
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;      /* biar rapat tanpa jarak */
+  color: white;   /* sesuai tema gelapmu */
+  }
+
+    .predua {
+  font-family: monospace;
+  font-size: 1rem;
+  margin: 0;      /* biar rapat tanpa jarak */
+  color: rgb(36, 4, 4);   /* sesuai tema gelapmu */
+  }
+
+.popup-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1.5rem;        /* lebih besar */
+  font-family: "Courier New", monospace; /* ganti dengan font yang kamu suka */
+  font-weight: bold;        /* biar tebal */
+  color: #140202;              /* biar kontras di background gelap */
+}
+
+
+
   </style>
 </head>
 <body>
@@ -168,30 +184,45 @@
 
   <div class="message-container" id="messageContainer">
     <div class="message">
-      <h1>Hello, Mai 👋</h1>
-      <p>
-        Life is a journey filled with moments of joy, sorrow, challenges, and triumphs. Sometimes, it may feel like the world is too heavy to carry or that you’re walking this path alone. But please remember this: every sunrise brings a new chance, every breath a new beginning.
-        <br><br>
-        You are doing better than you think, and the strength you need is already within you. The fact that you're still standing even when it's tough is a victory in itself. It's okay to rest, to cry, to feel unsure. But don’t ever forget: you are worthy, you are capable, and your presence matters more than you know.
-        <br><br>
-        I’m grateful to cross paths with you as a new friend. Let’s keep going, one step at a time, hand in hand through the unknown.
-        <br><br>
-        From Neev
-      </p>
-      <button onclick="alert('Let’s be a nice friends, this is gonna be awesome! 🌟')">Click me!</button>
+      <h1>Coba liat, Ini caca ⬇️ </h1>
+      <pre>
+  (\_____/)
+  (  • •  )
+    (   (oo)   )
+    (    --    )
+    /(        )\
+  (  |      |  )
+    ^^        ^^
+    ~~~~~~
+        <pre class="predua">
+  Tapi kayanya kurang jelas deh, 
+  coba klik tombol ini biar lebih jelas
+        </pre>
+      </pre>
+      <button id="showImage">Coba Pencet</button>
     </div>
   </div>
+
+  <!-- Popup -->
+<!-- POPUP -->
+<!-- POPUP -->
+<!-- POPUP -->
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <span class="close" id="closePopup">&times;</span>
+    <img src="2359.jpg_wh860.jpg" alt="Motivational Gift">
+    <p class="popup-text">Ini jelasnya</p>
+  </div>
+</div>
+
+
+
 
   <div class="stars" id="stars"></div>
 
   <script>
     const starsContainer = document.getElementById("stars");
-    let numberOfStars = 60; // Default untuk desktop
-
-    // Mengurangi jumlah bintang untuk perangkat mobile demi performa
-    if (window.innerWidth <= 768) {
-      numberOfStars = 30; 
-    }
+    let numberOfStars = window.innerWidth <= 768 ? 30 : 60;
 
     for (let i = 0; i < numberOfStars; i++) {
       const star = document.createElement("div");
@@ -204,8 +235,27 @@
 
     function openBook() {
       document.querySelector('.book').style.display = 'none';
-      document.getElementById('messageContainer').style.display = 'block'; // Targetkan container
+      document.getElementById('messageContainer').style.display = 'block';
     }
+
+    // Popup logic
+    const popup = document.getElementById('popup');
+    const showBtn = document.getElementById('showImage');
+    const closeBtn = document.getElementById('closePopup');
+
+    showBtn.addEventListener('click', () => {
+      popup.style.display = 'flex';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+
+    window.addEventListener('click', (e) => {
+      if (e.target === popup) {
+        popup.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
